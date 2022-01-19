@@ -1,0 +1,12 @@
+Paper Mario Badges adds over 30 unique accessories and other fun Paper Mario themed items into the game! Do crazy damage with Mega Rush, dodge attacks with Lucky Day, or never fear a boulder trap again with Spike Shield -- and tons more!
+
+All badges are sold by a new NPC, Charlieton (from The Thousand Year Door), who functions as a traveling merchant and has a selection of items to buy.
+
+Inspired by my initial Lucky Day mod. Enjoy!
+
+If you have a suggestion, encounter a bug, or simply want to see a list of the items in the mod and a description, join the discord listed in the mod homepage!
+
+Few of the assets are my own, mostly ripped from Paper Mario. Support the official release!
+
+Version 0.1.2 -- Description Change, Heart and Flower Finder from 1/75 to 1/50 chance
+Version 0.1.0 - 0.1.1 -- Initial Release
