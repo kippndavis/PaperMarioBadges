@@ -12,7 +12,7 @@ namespace PaperMarioBadges.Items
         public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Super Appeal");
-			Tooltip.SetDefault("Effects active in Inventory\nWearer gets a morale boost on enemy kill\nFavorite this to disable this effect\n\"Finally, some recognition!\"");
+			Tooltip.SetDefault("Effects active in Inventory\nWearer gets a morale boost on enemy kill\nFavorite this to enable this effect\n\"Finally, some recognition!\"");
 		}
 
 		public override void SetDefaults() 
@@ -24,7 +24,7 @@ namespace PaperMarioBadges.Items
         public override void UpdateInventory(Player player)
         {
             modPlayer mPlayer = (modPlayer)(player.GetModPlayer(mod, "modPlayer"));
-            if (!item.favorited)
+            if (item.favorited)
             {
                 mPlayer.superAppealItem = true;
             }

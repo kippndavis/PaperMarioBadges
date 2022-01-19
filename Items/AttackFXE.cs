@@ -12,7 +12,7 @@ namespace PaperMarioBadges.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Attack FX E");
-            Tooltip.SetDefault("Effects active in Inventory\nChanges the sound of your attacks\nFavorite this to disable this effect");
+            Tooltip.SetDefault("Effects active in Inventory\nChanges the sound of your attacks\nFavorite this to enable this effect");
         }
 
         public override void SetDefaults()
@@ -24,7 +24,7 @@ namespace PaperMarioBadges.Items
         public override void UpdateInventory(Player player)
         {
             modPlayer mPlayer = (modPlayer)(player.GetModPlayer(mod, "modPlayer"));
-            if (!item.favorited)
+            if (item.favorited)
             {
                 mPlayer.attackFXEItem = true;
             }

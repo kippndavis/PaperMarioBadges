@@ -12,7 +12,7 @@ namespace PaperMarioBadges.Items
         public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Chill Out");
-			Tooltip.SetDefault("Effects active in Inventory\nHalves enemy spawn rate\nFavorite this to disable this effect");
+			Tooltip.SetDefault("Effects active in Inventory\nHalves enemy spawn rate\nFavorite this to enable this effect");
         }
 
 		public override void SetDefaults() 
@@ -25,7 +25,7 @@ namespace PaperMarioBadges.Items
         {
             item.rare = 1;
             modPlayer mPlayer = (modPlayer)(player.GetModPlayer(mod, "modPlayer"));
-            if (!item.favorited)
+            if (item.favorited)
             {
                 mPlayer.chillOutItem = true;
             }
