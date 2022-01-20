@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using System;
+using Terraria.Localization;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
@@ -56,8 +57,8 @@ namespace PaperMarioBadges.Items
         public bool showPeril = true;
         public float lifePercentage = 0.0f;
         public int payOffCooldown = 0; // 5 mins
-        public int doubleDipHealingCooldown = 1800; // 5 mins
-        public int doubleDipManaCooldown = 1800; // 5 mins
+        public int doubleDipHealingCooldown = 0; // 5 mins
+        public int doubleDipManaCooldown = 0; // 5 mins
         public int iSpyCooldown = 3600; // 5 mins
         public int angersWrathCooldown = 0; // 10 seconds
 
@@ -398,9 +399,10 @@ namespace PaperMarioBadges.Items
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
+
             if (returnPostageItem && !luckyProc) // If player dodges, no thorns effect
             {
-                int returnDamage = (returnPostageDamage * 2);
+                int returnDamage = (damage * 2);
                 npc.StrikeNPCNoInteraction(returnDamage, 0f, 0, false, false, false);
                 if (npc.life <= 0)
                 {
