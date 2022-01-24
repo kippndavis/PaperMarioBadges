@@ -17,7 +17,7 @@ namespace PaperMarioBadges.Items
 
 		public override void SetDefaults() 
 		{
-            item.value = Item.sellPrice(0, 0, 1, 0);
+            item.value = Item.sellPrice(0, 1, 0, 0);
             item.rare = 1;
         }
 
