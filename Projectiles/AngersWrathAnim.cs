@@ -25,8 +25,8 @@ namespace PaperMarioBadges.Projectiles
         {
 
             projectile.rotation = 0;
-            projectile.position.X = Main.player[Main.myPlayer].position.X - 30;
-            projectile.position.Y = Main.player[Main.myPlayer].position.Y - 105;
+            projectile.position.X = Main.player[projectile.owner].position.X - 30;
+            projectile.position.Y = Main.player[projectile.owner].position.Y - 105;
 
             //This will cycle through all of the frames in the sprite sheet
             int frameSpeed = 4;

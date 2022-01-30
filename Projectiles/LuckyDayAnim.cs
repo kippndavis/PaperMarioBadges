@@ -9,6 +9,7 @@ namespace PaperMarioBadges.Projectiles
 {
     public class LuckyDayAnim : ModProjectile
     {
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[projectile.type] = 62; //The number of frames the sprite sheet has
@@ -23,8 +24,9 @@ namespace PaperMarioBadges.Projectiles
         {
 
             projectile.rotation = 0;
-            projectile.position.X = Main.player[Main.myPlayer].position.X - 45;
-            projectile.position.Y = Main.player[Main.myPlayer].position.Y - 68;
+            projectile.position.X = Main.player[projectile.owner].position.X - 45;
+            projectile.position.Y = Main.player[projectile.owner].position.Y - 68;
+
 
             //This will cycle through all of the frames in the sprite sheet
             int frameSpeed = 1;

@@ -35,5 +35,6 @@ namespace PaperMarioBadges.Items
             modPlayer mPlayer = (modPlayer)(player.GetModPlayer(mod, "modPlayer"));
             mPlayer.payOffItem = true;
         }
-	}
+
+    }
 }

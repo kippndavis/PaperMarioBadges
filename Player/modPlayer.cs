@@ -16,7 +16,6 @@ namespace PaperMarioBadges.Items
 {
     public class modPlayer : ModPlayer
     {
-        public static int direction = 0;
         public bool doublePainItem = false;
         public bool payOffItem = false;
         public bool slowGoItem = false;
@@ -101,103 +100,119 @@ namespace PaperMarioBadges.Items
 
             luckyProc = false;
 
-            if (dodgeMasterItem && dodgeMasterCooldown <= 0 && (luckyDayItem || (closeCallItem && lifePercentage <= 0.5) || prettyLuckyItem))
+            if (player.whoAmI == Main.myPlayer) // Relevant for multi, otherwise random effects can trigger for other players
             {
-                dodgeMasterCooldown = 3600;
-                hitDirection = 0;
-                luckyProc = true;
-                player.AddBuff(mod.BuffType("Dodge"), (player.longInvince ? 120 : 80));
-                Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Lucky"));
-                Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<LuckyDayAnim>(), 0, 0f);
-                return false;
-            }
 
-            if (luckyDayItem && Main.rand.Next(6) == 0)
-            {
-                playSound = false;
-                hitDirection = 0;
-                luckyProc = true;
-                player.AddBuff(mod.BuffType("Dodge"), (player.longInvince ? 120 : 80));
-                Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Lucky"));
-                Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<LuckyDayAnim>(), 0, 0f);
-                return false;
-            }
-
-            if (closeCallItem && Main.rand.Next(9) == 0 && lifePercentage <= 0.5)
-            {
-                playSound = false;
-                hitDirection = 0;
-                luckyProc = true;
-                player.AddBuff(mod.BuffType("Dodge"), (player.longInvince ? 120 : 80));
-                Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Lucky"));
-                Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<LuckyDayAnim>(), 0, 0f);
-                return false;
-            }
-
-            if (prettyLuckyItem && Main.rand.Next(12) == 0)
-            {
-                playSound = false;
-                hitDirection = 0;
-                luckyProc = true;
-                player.AddBuff(mod.BuffType("Dodge"), (player.longInvince ? 120 : 80));
-                Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Lucky"));
-                Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<LuckyDayAnim>(), 0, 0f);
-                return false;
-            }
-
-            if (doublePainItem) // Apply this before any reductions
-            {
-                damage *= 2;
-            }
-
-            if (lastStandItem && (damage >= player.statLife) && lifePercentage >= 0.5)
-            {
-                damage = player.statLife - 1; // Reduce player life to 1
-                Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Block"));
-                Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<LastStandBlock>(), 0, 0f);
-            } else if (lastStandItem && lifePercentage < 0.5)
-            {
-                damage = (int)(damage * 0.75);
-            }
-
-            if (defendPlusItem)
-            {
-                damage = (int)(damage * 0.95);
-            }
-
-            if (spikeShieldItem && (damageSource.SourceProjectileType == ProjectileID.Boulder || damageSource.SourceProjectileType == ProjectileID.PoisonDart))
-            {
-                damage = (int)(damage * 0.25);
-            }
-
-            if (payOffItem && payOffCooldown <= 0 && Main.rand.Next(50) == 0)
-            {
-                payOffCooldown = 18000;
-                if (doublePainItem)
+                if (dodgeMasterItem && dodgeMasterCooldown <= 0 && (luckyDayItem || (closeCallItem && lifePercentage <= 0.5) || prettyLuckyItem))
                 {
-                    if (Main.rand.Next(50) == 0) {
-                            Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y - 50, 0, 0, ModContent.ProjectileType<PlatPortalAnim>(), 0, 0f);
-                    } else {
-                        Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y - 50, 0, 0, ProjectileID.CoinPortal, 0, 0f);
-                    }
-                } else {
-                     if (Main.rand.Next(100) == 0)
-                     {
-                         Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y - 50, 0, 0, ModContent.ProjectileType<PlatPortalAnim>(), 0, 0f);
-                     } else {
-                         Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y - 50, 0, 0, ProjectileID.CoinPortal, 0, 0f);
-                     }
+                    dodgeMasterCooldown = 3600;
+                    hitDirection = 0;
+                    luckyProc = true;
+                    player.AddBuff(mod.BuffType("Dodge"), (player.longInvince ? 120 : 80));
+                    Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Lucky"));
+                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<LuckyDayAnim>(), 0, 0f, Main.myPlayer);
+                    return false;
                 }
-            }
 
-            if (returnPostageItem && damageSource.SourceNPCIndex != -1)
-            {
-                returnPostageDamage = damage;
-                returnPostageLife = player.statLife;
-                player.statLife += damage; // Preemptively heal to prevent lethal damage; see OnHitByNPC
+                if (luckyDayItem && Main.rand.Next(6) == 0)
+                {
+                    playSound = false;
+                    hitDirection = 0;
+                    luckyProc = true;
+                    player.AddBuff(mod.BuffType("Dodge"), (player.longInvince ? 120 : 80));
+                    Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Lucky"));
+                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<LuckyDayAnim>(), 0, 0f, Main.myPlayer);
+                    return false;
+                }
+
+                if (closeCallItem && Main.rand.Next(9) == 0 && lifePercentage <= 0.5)
+                {
+                    playSound = false;
+                    hitDirection = 0;
+                    luckyProc = true;
+                    player.AddBuff(mod.BuffType("Dodge"), (player.longInvince ? 120 : 80));
+                    Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Lucky"));
+                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<LuckyDayAnim>(), 0, 0f, Main.myPlayer);
+                    return false;
+                }
+
+                if (prettyLuckyItem && Main.rand.Next(12) == 0)
+                {
+                    playSound = false;
+                    hitDirection = 0;
+                    luckyProc = true;
+                    player.AddBuff(mod.BuffType("Dodge"), (player.longInvince ? 120 : 80));
+                    Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Lucky"));
+                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<LuckyDayAnim>(), 0, 0f, Main.myPlayer);
+                    return false;
+                }
+
+                if (doublePainItem) // Apply this before any reductions
+                {
+                    damage *= 2;
+                }
+
+                if (lastStandItem && (damage >= player.statLife) && lifePercentage >= 0.5)
+                {
+                    damage = player.statLife - 1; // Reduce player life to 1
+                    Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Block"));
+                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<LastStandBlock>(), 0, 0f, Main.myPlayer);
+                }
+                else if (lastStandItem && lifePercentage < 0.5)
+                {
+                    damage = (int)(damage * 0.75);
+                }
+
+                if (defendPlusItem)
+                {
+                    damage = (int)(damage * 0.95);
+                }
+
+                if (spikeShieldItem && (damageSource.SourceProjectileType == ProjectileID.Boulder || damageSource.SourceProjectileType == ProjectileID.PoisonDart))
+                {
+                    damage = (int)(damage * 0.25);
+                }
+
+                if (payOffItem && payOffCooldown <= 0 && Main.rand.Next(50) == 0)
+                {
+
+                    payOffCooldown = 18000;
+
+                    if (doublePainItem)
+                    {
+                        if (Main.rand.Next(50) == 0)
+                        {
+                            Projectile.NewProjectile(player.position.X, player.position.Y - 50, 0, 0, ModContent.ProjectileType<PlatPortalAnim>(), 0, 0f, Main.myPlayer);
+                        }
+                        else
+                        {
+                            Projectile.NewProjectile(player.position.X, player.position.Y - 50, 0, 0, ProjectileID.CoinPortal, 0, 0f, Main.myPlayer);
+                        }
+                    }
+                    else
+                    {
+                        if (Main.rand.Next(100) == 0)
+                        {
+                            Projectile.NewProjectile(player.position.X, player.position.Y - 50, 0, 0, ModContent.ProjectileType<PlatPortalAnim>(), 0, 0f, Main.myPlayer);
+                        }
+                        else
+                        {
+                            Projectile.NewProjectile(player.position.X, player.position.Y - 50, 0, 0, ProjectileID.CoinPortal, 0, 0f, Main.myPlayer);
+                        }
+                    }
+                }
+
+                if (returnPostageItem && damageSource.SourceNPCIndex != -1)
+                {
+                    returnPostageDamage = damage;
+                    returnPostageLife = player.statLife;
+                    player.statLife += damage; // Preemptively heal to prevent lethal damage; see OnHitByNPC
+                }
+                return true;
             }
 
             return true;
+
         }
 
         public override void ModifyWeaponDamage(Item item, ref float add, ref float mult, ref float flat)
@@ -403,11 +418,22 @@ namespace PaperMarioBadges.Items
             if (returnPostageItem && !luckyProc) // If player dodges, no thorns effect
             {
                 int returnDamage = (damage * 2);
+
+                if (!(Main.netMode == NetmodeID.SinglePlayer)) // For multi
+                {
+                    ModPacket packet = mod.GetPacket();
+                    packet.Write((byte)0);
+                    packet.Write(returnDamage);
+                    packet.Write((byte)npc.whoAmI);
+                    packet.Send(-1, Main.myPlayer);
+                }
+
                 npc.StrikeNPCNoInteraction(returnDamage, 0f, 0, false, false, false);
+
                 if (npc.life <= 0)
                 {
                     //if (Main.netMode == NetmodeID.SinglePlayer) Main.NewText("Incoming damage was: " + returnPostageDamage + " | NPC Life was " + npc.life + " | returnDamage was " + returnDamage + " | NPC Defense was " + npc.defense, 50, 125, 255);
-                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<NoDamageAnim>(), 0, 0f);
+                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<NoDamageAnim>(), 0, 0f, Main.myPlayer);
                     Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/NoDamage"));
                     player.statLife = returnPostageLife;
                 }
@@ -443,9 +469,6 @@ namespace PaperMarioBadges.Items
             float statLifeMax = player.statLifeMax;
             lifePercentage = statLife / statLifeMax;
 
-            // Get facing direction
-            direction = player.direction;
-
             // Tick cooldowns
             payOffCooldown--;
             iSpyCooldown--;
@@ -466,7 +489,7 @@ namespace PaperMarioBadges.Items
                 {
                     showDanger = false;
                     Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Danger"));
-                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<Danger>(), 0, 0f);
+                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<Danger>(), 0, 0f, Main.myPlayer);
                 }
             }
 
@@ -476,7 +499,7 @@ namespace PaperMarioBadges.Items
                 {
                     showPeril = false;
                     Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Peril"));
-                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<Peril>(), 0, 0f);
+                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<Peril>(), 0, 0f, Main.myPlayer);
                 }
             }
 
@@ -501,7 +524,7 @@ namespace PaperMarioBadges.Items
                 {
                     angersWrathCooldown = 600;
                     Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/QuestionMark"));
-                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<AngersPowerQ>(), 0, 0f);
+                    Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<AngersPowerQ>(), 0, 0f, Main.myPlayer);
                     int debuff = Main.rand.Next(3);
                     if (debuff == 0)
                     {
@@ -530,7 +553,7 @@ namespace PaperMarioBadges.Items
                     if (iSpyCooldown <= 0 && Main.rand.Next(36000) == 0)
                     {
                         iSpyCooldown = 36000;
-                        Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<ISpyAnim>(), 0, 0f);
+                        Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<ISpyAnim>(), 0, 0f, Main.myPlayer);
                         Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Twinkle"));
                         player.AddBuff(9, 18000);
                         player.AddBuff(17, 18000);

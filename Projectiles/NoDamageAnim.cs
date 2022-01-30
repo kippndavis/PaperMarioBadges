@@ -32,9 +32,8 @@ namespace PaperMarioBadges.Projectiles
 
             if (getDirection) { // Make the projectile fly in the way the player is facing when hit
                 getDirection = false; 
-                direction = modPlayer.direction; 
-            } 
-
+                direction = Main.player[projectile.owner].direction; 
+            }
             projectile.rotation = 0;
             projectile.scale = 0.6f;
             projectile.position.X += (4 * direction);

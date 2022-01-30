@@ -24,15 +24,16 @@ namespace PaperMarioBadges.Projectiles
         {
 
             projectile.rotation = 0;
-            if (modPlayer.direction == 1)
+            if (Main.player[projectile.owner].direction == 1)
             {
-                projectile.position.X = Main.player[Main.myPlayer].position.X - 31;
+                projectile.position.X = Main.player[projectile.owner].position.X - 31;
             } else
             {
-                projectile.position.X = Main.player[Main.myPlayer].position.X - 35;
-                
+                projectile.position.X = Main.player[projectile.owner].position.X - 35;
+
             }
-            projectile.position.Y = Main.player[Main.myPlayer].position.Y - 40;
+
+            projectile.position.Y = Main.player[projectile.owner].position.Y - 40;
 
             if (projectile.timeLeft >= 80)
             {

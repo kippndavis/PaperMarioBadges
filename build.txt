@@ -1,4 +1,4 @@
 displayName = Paper Mario Badges
 author = Spunk Bunkers
-version = 0.1.3.3
+version = 0.1.4
 homepage = https://discord.gg/xRxdqXRTzb

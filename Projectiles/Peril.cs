@@ -22,8 +22,8 @@ namespace PaperMarioBadges.Projectiles
         {
 
             projectile.rotation = 0;
-            projectile.position.X = Main.player[Main.myPlayer].position.X - 8;
-            projectile.position.Y = Main.player[Main.myPlayer].position.Y - 28;
+            projectile.position.X = Main.player[projectile.owner].position.X - 8;
+            projectile.position.Y = Main.player[projectile.owner].position.Y - 28;
 
             if (projectile.timeLeft >= 80)
             {

@@ -38,7 +38,7 @@ namespace PaperMarioBadges.Items
             {
                 playEffect = true;
                 Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/MarioAnger"));
-                Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<AngersWrathAnim>(), 0, 0f);
+                Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<AngersWrathAnim>(), 0, 0f, Main.myPlayer);
             }
         }
 
@@ -53,7 +53,7 @@ namespace PaperMarioBadges.Items
             {
                 playEffect = true;
                 Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/MarioAnger"));
-                Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<AngersWrathAnim>(), 0, 0f);
+                Projectile.NewProjectile(Main.player[Main.myPlayer].position.X, Main.player[Main.myPlayer].position.Y, 0, 0, ModContent.ProjectileType<AngersWrathAnim>(), 0, 0f, Main.myPlayer);
             }
         }
 	}
